@@ -159,12 +159,17 @@ HCURSOR C线程控制56Dlg::OnQueryDragIcon()
 int k = 1;
 int total = 0;		//两个线程共享就会发生严重的问题
 
+//对共享资源要进行加锁和解锁
+
 UINT ThreadProcA(LPVOID pParam) {
 	for (int i = 1; i <= 100000000; i++) {
 		//模拟要做很多工作
+
+		//加锁  (临界区) 或 关键区
 		k = k * 2;
 		k = k / 2;
 		total += k;
+		//解锁
 	}
 	::SetDlgItemInt(AfxGetApp()->m_pMainWnd->m_hWnd, IDC_OUTPUT, total,false);
 	return 0;
@@ -172,9 +177,12 @@ UINT ThreadProcA(LPVOID pParam) {
 UINT ThreadProcB(LPVOID pParam) {
 	for (int i = 1; i <= 100000000; i++) {
 		//模拟要做很多工作
+
+		//加锁
 		k = k * 2;
 		k = k / 2;
 		total += k;
+		//解锁
 	}
 	::SetDlgItemInt(AfxGetApp()->m_pMainWnd->m_hWnd, IDC_OUTPUT, total, false);
 	return 0;
