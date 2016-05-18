@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mymfc", "Mymfc\Mymfc.vcxproj", "{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo", "Demo\Demo.vcxproj", "{7F7255DB-D5C8-4359-BB22-80CCBBCB77D0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "创建线程MFC54", "创建线程MFC54\创建线程MFC54.vcxproj", "{A099A382-A320-451F-B8E4-D1453953BD79}"
@@ -19,14 +17,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Debug|x64.ActiveCfg = Debug|x64
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Debug|x64.Build.0 = Debug|x64
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Debug|x86.ActiveCfg = Debug|Win32
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Debug|x86.Build.0 = Debug|Win32
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Release|x64.ActiveCfg = Release|x64
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Release|x64.Build.0 = Release|x64
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Release|x86.ActiveCfg = Release|Win32
-		{3B90934E-3EA0-4628-9CAA-E91B6AF91C06}.Release|x86.Build.0 = Release|Win32
 		{7F7255DB-D5C8-4359-BB22-80CCBBCB77D0}.Debug|x64.ActiveCfg = Debug|x64
 		{7F7255DB-D5C8-4359-BB22-80CCBBCB77D0}.Debug|x64.Build.0 = Debug|x64
 		{7F7255DB-D5C8-4359-BB22-80CCBBCB77D0}.Debug|x86.ActiveCfg = Debug|Win32
