@@ -9,13 +9,15 @@ UINT ThreadProcA(LPVOID pParam);
 UINT ThreadProcB(LPVOID pParam);
 
 
+
 // C线程控制56Dlg dialog
 class C线程控制56Dlg : public CDialogEx
 {
 // Construction
 public:
 	C线程控制56Dlg(CWnd* pParent = NULL);	// standard constructor
-
+	~C线程控制56Dlg();
+	
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MY56_DIALOG };

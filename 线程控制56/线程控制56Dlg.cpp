@@ -12,6 +12,7 @@
 #endif
 
 
+
 // CAboutDlg dialog used for App About
 
 class CAboutDlg : public CDialogEx
@@ -47,12 +48,29 @@ END_MESSAGE_MAP()
 
 // C线程控制56Dlg dialog
 
+//CCriticalSection *g_pCS;
+//CMutex *g_pMutex;
+//CSemaphore *g_pSemaphore;
+CEvent* g_pEvent;
 
 
 C线程控制56Dlg::C线程控制56Dlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_MY56_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	//g_pCS = new CCriticalSection();
+	//g_pMutex = new CMutex();
+	//g_pSemaphore = new CSemaphore();
+	g_pEvent = new CEvent(TRUE/*代表刚开始是有信号的*/);
+}
+
+C线程控制56Dlg::~C线程控制56Dlg()
+{
+
+	//delete(g_pCS);
+	//delete(g_pMutex);
+	//delete(g_pSemaphore);
+	delete(g_pEvent);
 }
 
 void C线程控制56Dlg::DoDataExchange(CDataExchange* pDX)
@@ -160,28 +178,87 @@ int k = 1;
 int total = 0;		//两个线程共享就会发生严重的问题
 
 //对共享资源要进行加锁和解锁
+/*
+//使用临界区对象进行同步
+for (int i = 1; i <= 100000000; i++) {
 
+//加锁  (临界区) 或 关键区
+g_pCS->Lock();
+
+k = k * 2;
+k = k / 2;
+total += k;
+
+g_pCS->Unlock();
+//解锁
+}
+*/
+/*
+//互斥量
+CSingleLock singleLock(g_pMutex);//创建一把锁	, 互斥量对象, 表示,每次只有一个线程在访问该变量
+for (int i = 1; i <= 100000000; i++) {
+
+//加锁
+singleLock.Lock();
+if (singleLock.IsLocked()) {
+k = k * 2;
+k = k / 2;
+total += k;
+singleLock.Unlock();
+}
+//解锁
+}
+*/
+/*
+//信号量对象
+CSingleLock singleLock(g_pSemaphore);//创建一把锁
+for (int i = 1; i <= 1000000; i++) {
+
+//加锁
+singleLock.Lock();
+if (singleLock.IsLocked()) {
+
+k = k * 2;
+k = k / 2;
+total += k;
+singleLock.Unlock();
+}
+//解锁
+}
+*/
 UINT ThreadProcA(LPVOID pParam) {
-	for (int i = 1; i <= 100000000; i++) {
-		//模拟要做很多工作
+	CSingleLock singleLock(g_pEvent);//创建一把锁
+	for (int i = 1; i <= 1000000; i++) {
 
-		//加锁  (临界区) 或 关键区
-		k = k * 2;
-		k = k / 2;
-		total += k;
+		//加锁
+		singleLock.Lock();
+		if (singleLock.IsLocked()) {
+
+			k = k * 2;
+			k = k / 2;
+			total += k;
+			singleLock.Unlock();
+			g_pEvent->SetEvent();//发信号给其他线程,就是可以加锁了,必须有
+		}
 		//解锁
 	}
-	::SetDlgItemInt(AfxGetApp()->m_pMainWnd->m_hWnd, IDC_OUTPUT, total,false);
+	::SetDlgItemInt(AfxGetApp()->m_pMainWnd->m_hWnd, IDC_OUTPUT, total, false);
 	return 0;
 }
 UINT ThreadProcB(LPVOID pParam) {
-	for (int i = 1; i <= 100000000; i++) {
-		//模拟要做很多工作
+	CSingleLock singleLock(g_pEvent);//创建一把锁
+	for (int i = 1; i <= 1000000; i++) {
 
 		//加锁
-		k = k * 2;
-		k = k / 2;
-		total += k;
+		singleLock.Lock();
+		if (singleLock.IsLocked()) {
+
+			k = k * 2;
+			k = k / 2;
+			total += k;
+			singleLock.Unlock();
+			g_pEvent->SetEvent();//发信号给其他线程,就是可以加锁了,必须有
+		}
 		//解锁
 	}
 	::SetDlgItemInt(AfxGetApp()->m_pMainWnd->m_hWnd, IDC_OUTPUT, total, false);
