@@ -972,8 +972,54 @@ windows所有的服务都用服务控制管理器 来安装和管理程序
 * 一个进程至少有一个线程
 * 多个线程 有一个是主线程      进程管理器只能查看进程 不能查看线程  用spy++   超级间谍
 
-    
+* 简单的程序设计,一个进程一个线程
+* 高级的程序设计,一个进程多个线程
+
+## 53 PWCP 多线程
+
+* 创建线程
+CreateThread   win32 api 
+_beginthread    c语言的函数  在 #include<process.h>里
+
+*线程函数
+
+void __cdecl ThreadProc(void *pParam);
+        
 
     
+## 54 MFC 创建线程
+
+使用这个函数
+* AfxBeginThread()
+* 线程函数
+typedef UINT(AFX_CDECL AFX_THREADPROC)(LPVOID)
+
+## 55 线程控制
+* 暂停
+* 继续
+* 终止
+
+
+## 56 线程同步
+* 为什么要进行线程同步?
+* 线程同步方法
+    临界区
+    互斥量
+    信号量
+    事件
     
-    
+## 57 线程同步方法
+临界区 -> CCriticalSection     也叫关键区对象 (最快,这里是应用程序级的),以下三个都是windows内核对象,所以慢
+互斥量 -> CMuteX
+信号量 -> CSemaphore
+事件   -> CEvent
+
+## 58 创建进程
+* CreateProcess
+* ExitProcess   自己结束自己
+* TerminateProcess 结束别的进程
+
+* 获得命令行参数   GetCommandLine();
+* GetCurrentProcessId
+
+严格来讲, windows里是不分主(父)进程和子进程的, Windows不记录谁创建了谁, 进程间是平等的  ,Linux是分父子的
