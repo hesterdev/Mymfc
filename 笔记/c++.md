@@ -1023,3 +1023,154 @@ typedef UINT(AFX_CDECL AFX_THREADPROC)(LPVOID)
 * GetCurrentProcessId
 
 严格来讲, windows里是不分主(父)进程和子进程的, Windows不记录谁创建了谁, 进程间是平等的  ,Linux是分父子的
+
+## 59 环境变量
+
+## 60 环境变量
+GetEnvironmentStrings
+
+## 61 继承环境变量
+* 父进程设置环境变量
+* 子进程继承父进程的环境变量
+
+两个进程之前,传递数据
+    * 通过环境变量来传递数据
+    * 命令行参数
+
+## 62 枚举进程 - 1
+
+* 通过系统快照进程进行枚举
+* 通过psapi.dll
+* 通过ntdll.dll
+* 通过wtsapi32.dll中的函数进行枚举
+
+## 63 枚举进程 - 2
+* 通过psapi.dll
+EnumProcesses();
+EnumProcessModules();
+GetModuleFileNameEx();
+
+函数声明里有缺省参数
+定义里就可以不写了, 只写一个即可,也必须写一个
+
+
+##  64 枚举进程 - 3     (最简单)
+wtsapi32来枚举
+
+wts -> windows terminal service
+
+## 65 枚举进程 - 4
+ntdll.dll(没有头文件.h,也没有导入文件.lib)中的函数进行枚举 是windows操作系统里的
+
+放在了内核驱动开发包里,都没有 头文件
+
+## 66 进程间通信 - 自定义消息
+* 消息是windows的核心
+    系统消息(windows使用) 和 用户消息(自定义消息)
+    消息就是一个数
+    0x00~0x3FF  系统消息    (0~1023)
+    0x400       用户消息
+* 用户自定义消息的两种方法
+
+## 67 进程间通信_数据复制消息
+* 消息
+    WM_COPYDATA
+* 结构
+    typedef struct tagCOPYDATASTRUCT{
+        ULONG_PTR dwData;
+        DWORD cbData;
+        PVOID lpData;
+    }COPYDATASTRUCT,*PCOPYDATASTRUCT;
+    
+## 68 进程间通信_剪切板
+* 剪贴板函数
+    OpenClipboard() CloseClipboard()
+    
+* 内存分配函数
+
+## 69 内存映射文件_共享数据
+
+进程A->内存映射<-进程B
+
+## 70 管道
+在进程间通信的方法之一 ,是最简单的方法,就像是在读文件写文件一样简单
+
+单管道(hPRead,hPWrite)
+
+## 71 进程间通信 - 邮槽 不能超过442个字节
+* 邮槽
+    \\.\mailslot\[path\]name        .代表本机
+    \\DomainName\[path\]name
+    \\ComputerName\[path\]name
+    \\*\mailslot\[path\]name        广播
+
+* 创建邮槽和打开邮槽
+    CreateMailslot()
+    CreateFile()
+* 读写邮槽
+    WriteFile()
+    ReadFile()
+    
+# 72 进程间通信_套接字(最复杂的一种)
+* Socket 套接字
+* 两种套接字
+    TCP Socket
+    UDP Socket
+    
+    网络 本机
+    
+网络通信
+TCP Socket
+ 
+## 73 WS_Socket_编程原理
+网络编程就是使用socket来编程
+
+* 网络程序 = 客户端程序 +　服务端程序
+* 套接字
+* Socket函数
+* IP地址转换
+* 字节转换
+
+套接字 (Socket) 也就是插座
+
+套接字 = 网络编程 + 端口号
+
+都有一个唯一的ip地址
+两种套接字
+
+Berkeley Socket -> Linux/UNIX
+Winsock-> Windows
+
+两种套接字   
+* 流套接字      (可靠)
+    SOCK_STREAM
+    TCP/IP
+* 数据包套接字   (不可靠,速度快,效率高)  客户 发送端  服务器(在等待) 接收端  连接建立之前
+    SOCK_DGRAM
+    UDP/IP
+
+IP地址转换
+* 点分IP地址 -> 32位无符号长整数    
+* 转换函数
+    s_addr=inet_addr("192.168.199.1")
+    
+字节转换
+* 大端字节(big-endian)
+* 小端字节(little-endian)
+
+联网的电脑 
+    * 主机字节 (host-byte)    要么小 要么大  intel是小端
+    * 网络字节 是大端字节顺序
+    
+## 74 TCP_Socket
+
+* 流式套接字
+   网络程序=客户端程序+服务端程序
+   
+## 75 Socket Client
+
+   
+    
+    
+
+
