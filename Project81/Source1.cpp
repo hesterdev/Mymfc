@@ -22,15 +22,17 @@ INT_PTR CALLBACK MainDlgProc(HWND hDlg, WPARAM uMsg, WPARAM wParam, LPARAM lPara
 		GlobalMemoryStatusEx(&ms);
 
 		TCHAR szData[512] = { 0 };
-		StringCchPrintf(szData, _countof(szData), TEXT("%d\n%I64d\n%I64d\n%I64d\n%I64d\n%I64d\n%I64d\n"), ms.dwMemoryLoad/*已经使用的内存的百分比*/, (__int64)ms.ullTotalPhys
-			, (__int64)ms.ullAvailPhys, (__int64)ms.ullTotalPageFile, (__int64)ms.ullAvailPageFile, (__int64)ms.ullTotalVirtual, (__int64)ms.ullAvailVirtual);
+		StringCchPrintf(szData, _countof(szData),
+			TEXT("%d\n%I64d\n%I64d\n%I64d\n%I64d\n%I64d\n%I64d\n"), 
+			ms.dwMemoryLoad/*已经使用的内存的百分比*/,ms.ullTotalPhys,
+			(__int64)ms.ullAvailPhys, (__int64)ms.ullTotalPageFile, (__int64)ms.ullAvailPageFile, (__int64)ms.ullTotalVirtual, (__int64)ms.ullAvailVirtual);
 
 		SetDlgItemText(hDlg, IDC_STATIC1, szData);
 
 		PROCESS_MEMORY_COUNTERS_EX pmc = { sizeof(pmc) };
 
 		GetProcessMemoryInfo(GetCurrentProcess(), (PPROCESS_MEMORY_COUNTERS)&pmc, sizeof(pmc));
-		StringCchPrintf(szData, _countof(szData), TEXT("%I64d K\n%I64d K"), (__int64)pmc.WorkingSetSize, (__int64)pmc.PrivateUsage);
+		StringCchPrintf(szData, _countof(szData), TEXT("%I64d K\n%I64d K"), (__int64)pmc.WorkingSetSize/1024, (__int64)pmc.PrivateUsage/1024);
 		SetDlgItemText(hDlg, IDC_STATIC2, szData);
 	}
 	break;
