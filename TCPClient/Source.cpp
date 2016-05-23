@@ -45,7 +45,9 @@ int main(int argc, char**argv) {
 
 	printf("Our connection succeeded.\n");
 	printf("We will now try to send a hello message.\n");
-	isSuccess = send(s, "hello", 5, 0);
+
+	isSuccess = send(s, argv[2], strlen(argv[2]), 0);
+	//isSuccess = send(s, "hello", 5, 0);
 	if (isSuccess == SOCKET_ERROR) {
 		printf("Send failed with error %d\n", WSAGetLastError());
 		closesocket(s);
