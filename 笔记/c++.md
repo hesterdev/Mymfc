@@ -1234,4 +1234,13 @@ Intel架构
 * 栈区
 * 堆区
 
+## ENVI
+calloc 自带初始化   c -> count
+malloc 不带         
+
+HeapAlloc HeapFree
+
+在进程默认堆上分配
+也可以在进程里 创建新的进程堆,那就只能用 windows api函数了
+
 
