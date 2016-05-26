@@ -71,9 +71,9 @@ INT_PTR CALLBACK MainDlgProc(HWND hDlg, WPARAM uMsg, WPARAM wParam, LPARAM lPara
 
 			iLength = GetEnvironmentVariable(pVarName, NULL, 0);
 			pVarValue = (TCHAR*)calloc(iLength, sizeof(TCHAR*));
-			GetEnvironmentVariable(pVarName, pVarValue,iLength);
+			GetEnvironmentVariable(pVarName, pVarValue, iLength);
 
-			SetWindowText(GetDlgItem(hDlg,IDC_STATIC1), pVarValue);
+			SetWindowText(GetDlgItem(hDlg, IDC_STATIC1), pVarValue);
 			free(pVarName);
 			free(pVarValue);
 		}
