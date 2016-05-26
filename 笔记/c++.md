@@ -1244,3 +1244,6 @@ HeapAlloc HeapFree
 也可以在进程里 创建新的进程堆,那就只能用 windows api函数了
 
 
+## 86 内存基本操作
+MoveMemory
+
