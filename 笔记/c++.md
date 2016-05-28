@@ -1307,3 +1307,6 @@ VirtualAllocEx 对其他进程进行操作
 *Free       ->空闲的
 * Reserved ->保留的
 * Commited ->提交
+
+
+虚拟内存=页面文件+物理内存
